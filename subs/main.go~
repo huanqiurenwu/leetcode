@@ -1,0 +1,46 @@
+package main
+
+import "fmt"
+
+func main(){
+}
+
+func subsetsWithDup(nums []int) map[int]int{
+	notRepeated := make([]int, 0, 10)
+    repeated := make([]int,0, 10)
+	counts := make(map[int]int)
+	for _,v := range nums {
+		if isExist(notRepeated, v){
+			counts[len(repeated)] ++
+			repeated = append(repeated，v)
+		} else {
+			notRepeated = append(notRepeated, v)
+		}
+	}
+	subs := make([]map[int]int)
+	for _,v := range notRepeated {
+        for _,sv := range subs {
+		sv[v] = 1 
+            subs = append(subs, sv)
+        }
+	}
+	for k,v := range repeated {
+		for _, sv := range subs {
+			if sv[v] == counts[k] {
+				sv[v] += 1
+				subs = append(subs, sv)
+			}
+        }
+	}
+	
+}
+    
+
+func isExist(save []int, value int) bool{
+    for _,v := range save {
+        if v == value {
+            return true
+        }
+    }
+    return false
+}
