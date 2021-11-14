@@ -4,6 +4,7 @@ import "fmt"
 
 func main() {
 	fmt.Println(maxSubArray([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}))
+	fmt.Println(maxSubArray([]int{-2, 1}))
 }
 
 func maxSubArray(nums []int) int {
@@ -13,9 +14,9 @@ func maxSubArray(nums []int) int {
 	for k := 1; k < len(nums); k++ {
 		if nums[k-1] > 0 {
 			nums[k] = nums[k] + nums[k-1]
-			if nums[k] > max {
-				max = nums[k]
-			}
+		}
+		if nums[k] > max {
+			max = nums[k]
 		}
 	}
 	return max

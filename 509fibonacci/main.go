@@ -5,9 +5,9 @@ import (
 	"time"
 )
 
-var FIN int = 50
+var FIN int = 4
 
-func main(){
+func main() {
 	start := time.Now()
 	v1 := fibonacci(FIN)
 	duration1 := time.Since(start)
@@ -15,6 +15,7 @@ func main(){
 	v2 := memofibonacci(FIN)
 	duration2 := time.Since(start) - duration1
 	fmt.Println("result:", v2, " time:", duration2)
+	fmt.Println("fib2 4:", fib2(4))
 }
 
 func Triple(n int) (r int) {
@@ -24,11 +25,11 @@ func Triple(n int) (r int) {
 	return n + n
 }
 
-func fib(n int) int{
+func fib(n int) int {
 	if n <= 2 {
 		return 1
 	}
-	if n <1{
+	if n < 1 {
 		return 0
 	}
 	return fib(n-1) + fib(n-2)
@@ -40,7 +41,7 @@ func fib(n int) int{
 //}
 
 func fibonacci(n int) int {
-	if n == 1 || n==2{
+	if n == 1 || n == 2 {
 		return 1
 	}
 	return fibonacci(n-1) + fibonacci(n-2)
@@ -55,11 +56,22 @@ func backtrack(n int, memo map[int]int) (result int) {
 	if n == 1 || n == 2 {
 		return 1
 	}
-	if v,present := memo[n]; present == false {
+	if v, present := memo[n]; present == false {
 		result = backtrack(n-1, memo) + backtrack(n-2, memo)
 		memo[n] = result
 		return result
 	} else {
 		return v
 	}
+}
+
+func fib2(n int) int {
+	if n <= 1 {
+		return 1
+	}
+	dpTable := []int{1, 1}
+	for i := 2; i <= n; i++ {
+		dpTable = append(dpTable, dpTable[i-1]+dpTable[i-2])
+	}
+	return dpTable[n]
 }
